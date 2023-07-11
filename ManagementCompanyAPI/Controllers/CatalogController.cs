@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using ManagementCompanyAPI.Interfaces;
 using ManagementCompanyAPI.Models;
+using ManagementCompanyAPI.Repository;
 
 namespace ManagementCompanyAPI.Controllers
 {
@@ -9,10 +10,10 @@ namespace ManagementCompanyAPI.Controllers
     [ApiController]
     public class CatalogController : Controller
     {
-        private readonly ICatalogRepository _catalogRepository;
+        private readonly CatalogRepository _catalogRepository;
         private readonly IMapper _mapper;
 
-        public CatalogController(ICatalogRepository catalogRepository, IMapper mapper)
+        public CatalogController(CatalogRepository catalogRepository, IMapper mapper)
         {
             _catalogRepository = catalogRepository;
             _mapper = mapper;
@@ -57,10 +58,10 @@ namespace ManagementCompanyAPI.Controllers
         {
             if (catalogCreate == null)
                 return BadRequest(ModelState);
-
-            var catalog = _catalogRepository.GetCatalogs()
-                .Where(c => c.Title.Trim().ToUpper() == catalogCreate.Title.TrimEnd().ToUpper())
-                .FirstOrDefault();
+            var f = _catalogRepository.GetCatalogs();
+            var catalog = _catalogRepository
+                .GetCatalogs()
+                .FirstOrDefault(c => c.Title.Trim().ToUpper() == catalogCreate.Title.TrimEnd().ToUpper());
 
             if (catalog != null)
             {
