@@ -42,6 +42,7 @@ namespace ManagementCompanyAPI.Data
                 .HasOne(e => e.Location)
                 .WithMany()
                 .HasForeignKey(e => e.Location);
+            
         }
     }
 }

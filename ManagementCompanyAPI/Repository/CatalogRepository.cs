@@ -36,7 +36,7 @@ namespace ManagementCompanyAPI.Repository
 
         public ICollection<Catalog> GetCatalogs()
         {
-                return _context.Catalogs.ToList();
+            return _context.Catalogs.ToList();
         }
 
         public Catalog GetCatalog(int id)
@@ -47,7 +47,7 @@ namespace ManagementCompanyAPI.Repository
         public bool Save()
         {
             var saved = _context.SaveChanges();
-            return saved > 0 ? true : false;
+            return saved > 0;
         }
 
         public bool UpdateCatalog(Catalog catalog)
